@@ -11,7 +11,7 @@
 
 This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). 
 
-In this work, we present a novel framework for incomplete multi-modality brain tumor segmentation named **MST-KDNet**. By effectively capturing cross-modality correlations and enhancing tumor-region representation, our method maintains **robust and accurate segmentation performance even under severe modality loss**. Furthermore, to reduce redundancy in modality-specific features, we incorporate **global and local feature refinements** to **systematically align available modalities and mitigate missing ones**.
+By effectively capturing cross-modality correlations and enhancing tumor-region representation, our method maintains **robust and accurate segmentation performance even under severe modality loss**. Furthermore, to reduce redundancy in modality-specific features, we incorporate **global and local feature refinements** to **systematically align available modalities and mitigate missing ones**.
 
 <br><br>
 ![](./imgs/model.png)
