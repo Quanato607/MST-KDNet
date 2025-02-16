@@ -1,4 +1,4 @@
->📋  A template README.md for code accompanying a Machine Learning paper
+>📋  For code accompanying Muti-scale Transformer Knowledge Distillation Network of the paper
 
 # Bridging the Gap in Missing Modalities: Leveraging Knowledge Distillation and Style Matching for Brain Tumor Segmentation
 
@@ -16,8 +16,6 @@ To install requirements:
 ```setup
 pip install -r requirements.txt
 ```
-
->📋  Describe how to set up the environment, e.g. pip/conda/docker commands, download datasets, etc...
 
 ## Training
 
@@ -52,6 +50,16 @@ You can download pretrained models here:
 Our model achieves the following performance on :
 
 ### [Brain Tumor Segmentation on Brats2024](https://www.synapse.org/Synapse:syn53708249)
+
+<br><br>
+![](./imgs/c1.png)
+<br><br>
+
+### [Brain Tumor Segmentation on Brats2024](https://www.synapse.org/Synapse:syn53708249)
+
+<br><br>
+![](./imgs/c2.png)
+<br><br>
 
 | Model name         | Top 1 Accuracy  | Top 5 Accuracy |
 | ------------------ |---------------- | -------------- |
