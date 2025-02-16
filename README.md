@@ -52,8 +52,6 @@ To evaluate my model on ImageNet, run:
 python eval.py
 ```
 
-### Segmentation Visualizations 
-
 <br><br>
 ![](./imgs/fig2.png)
 <br><br>
