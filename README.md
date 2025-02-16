@@ -3,6 +3,9 @@
 # Bridging the Gap in Missing Modalities: Leveraging Knowledge Distillation and Style Matching for Brain Tumor Segmentation
 
 This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). 
+<br><br>
+![](./imgs/model.png)
+<br><br>
 
 >📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
 
