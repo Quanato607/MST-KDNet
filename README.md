@@ -2,12 +2,17 @@
 
 # Bridging the Gap in Missing Modalities: Leveraging Knowledge Distillation and Style Matching for Brain Tumor Segmentation
 
+<div align="center">
+  
+[![](https://img.shields.io/github/stars/Quanato607/MST-KDNet)](https://github.com/Quanato607/MST-KDNet)
+[![](https://img.shields.io/github/forks/Quanato607/MST-KDNet)](https://github.com/Quanato607/MST-KDNet)
+[![](https://img.shields.io/github/issues/Quanato607/MST-KDNet)](https://github.com/Quanato607/MST-KDNet)
+</div>
+
 This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). 
 <br><br>
 ![](./imgs/model.png)
 <br><br>
-
->📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
 
 ## Requirements
 
@@ -39,14 +44,6 @@ python eval.py
 <br><br>
 ![](./imgs/fig2.png)
 <br><br>
-
-## Pre-trained Models
-
-You can download pretrained models here:
-
-- [My awesome model](https://drive.google.com/mymodel.pth) trained on ImageNet using parameters x,y,z. 
-
->📋  Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
 
 ## Results
 
