@@ -19,12 +19,11 @@ By effectively capturing cross-modality correlations and enhancing tumor-region 
 
 ## Table of Contents
 - [Requirements](#-Requirements)
-- [Certification](#-certification)
-- [How to Build](#-how-to-build)
-- [Documentation](#-documentation)
-- [Feedback and Contributions](#-feedback-and-contributions)
-- [License](#-license)
-- [Contacts](#%EF%B8%8F-contacts)
+- [Training](#-Training)
+- [Evaluation](#-Evaluation)
+- [Segmentation Visualizations ](#-Segmentation Visualizations)
+- [Results](#-Results)
+- [Contributing](#-Contributing)
 
 ## 📝 Requirements
 
