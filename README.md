@@ -46,7 +46,7 @@ python eval.py
 ![](./imgs/fig2.png)
 <br><br>
 
-## ⭐ Results
+## 🚀 Results
 
 Our model achieves the following performance on :
 
