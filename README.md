@@ -14,7 +14,7 @@ This repository is the official implementation of [MST-KDNet](https://arxiv.org/
 ![](./imgs/model.png)
 <br><br>
 
-## Requirements
+## 📝 Requirements
 
 To install requirements:
 
@@ -22,7 +22,7 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
-## Training
+## 🔥 Training
 
 To train the model(s) in the paper, run this command:
 
@@ -32,7 +32,7 @@ python train.py
 
 >📋  Before training, specify the data set and training configuration using the config.xml file
 
-## Evaluation
+## 📃 Evaluation
 
 To evaluate my model on ImageNet, run:
 
@@ -41,11 +41,12 @@ python eval.py
 ```
 
 >📋  segmentation visualizations bellow
+
 <br><br>
 ![](./imgs/fig2.png)
 <br><br>
 
-## Results
+## ⭐ Results
 
 Our model achieves the following performance on :
 
@@ -70,9 +71,7 @@ Our model achieves the following performance on :
 ![](./imgs/a1.png)
 <br><br>
 
->📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 
-
-## Contributing
+## 🤝 Contributing
 
 >📋  Pick a licence and describe how to contribute to your code repository. 
