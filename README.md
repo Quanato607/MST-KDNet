@@ -17,6 +17,15 @@ By effectively capturing cross-modality correlations and enhancing tumor-region 
 ![](./imgs/model.png)
 <br><br>
 
+## Table of Contents
+- [Requirements](#-Requirements)
+- [Certification](#-certification)
+- [How to Build](#-how-to-build)
+- [Documentation](#-documentation)
+- [Feedback and Contributions](#-feedback-and-contributions)
+- [License](#-license)
+- [Contacts](#%EF%B8%8F-contacts)
+
 ## 📝 Requirements
 
 To install requirements:
@@ -71,7 +80,7 @@ Our model achieves the following performance on :
 ![](./imgs/c4.png)
 <br><br>
 
-### [Ablation Experiment on Brats2024&Fets2024]
+### Ablation Experiment on Brats2024&Fets2024
 <br><br>
 ![](./imgs/a1.png)
 <br><br>
