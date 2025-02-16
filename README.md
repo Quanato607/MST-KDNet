@@ -40,12 +40,14 @@ To evaluate my model on ImageNet, run:
 python eval.py
 ```
 
->📋  segmentation visualizations bellow
+### Segmentation Visualizations 
 
 <br><br>
 ![](./imgs/fig2.png)
 <br><br>
 
+>📋  Comparison of segmentation results under four missing-modality scenarios: (1) all modalities, (2) FLAIR + T1ce + T2, (3) FLAIR + T1ce, and (4) FLAIR only. From left to right, the figure shows T1, T2, T1ce, and FLAIR images; ground-truth labels for two patients; three columns of comparison-study results; three columns of ablation-study results; and our final segmentation. Color legend: WT = red + yellow + green, TC = red + yellow, ET = red.
+  
 ## 🚀 Results
 
 Our model achieves the following performance on :
@@ -66,7 +68,7 @@ Our model achieves the following performance on :
 ![](./imgs/c4.png)
 <br><br>
 
-### [Alation Experiment on Fets2024](https://www.synapse.org/Synapse:syn53708249)
+### [Alation Experiment on Brats2024&Fets2024]
 <br><br>
 ![](./imgs/a1.png)
 <br><br>
