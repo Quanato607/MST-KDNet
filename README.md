@@ -49,21 +49,26 @@ You can download pretrained models here:
 
 Our model achieves the following performance on :
 
-### [Brain Tumor Segmentation on Brats2024](https://www.synapse.org/Synapse:syn53708249)
-
+### [Comparison Experiment on Brats2024](https://www.synapse.org/Synapse:syn53708249)
 <br><br>
 ![](./imgs/c1.png)
 <br><br>
-
-### [Brain Tumor Segmentation on Brats2024](https://www.synapse.org/Synapse:syn53708249)
-
 <br><br>
 ![](./imgs/c2.png)
 <br><br>
 
-| Model name         | Top 1 Accuracy  | Top 5 Accuracy |
-| ------------------ |---------------- | -------------- |
-| My awesome model   |     85%         |      95%       |
+### [Comparison Experiment on Fets2024](https://www.synapse.org/Synapse:syn53708249)
+<br><br>
+![](./imgs/c3.png)
+<br><br>
+<br><br>
+![](./imgs/c4.png)
+<br><br>
+
+### [Alation Experiment on Fets2024](https://www.synapse.org/Synapse:syn53708249)
+<br><br>
+![](./imgs/a1.png)
+<br><br>
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 
