@@ -16,6 +16,9 @@ Our method maintains **robust and accurate segmentation performance even under s
 <br><br>
 ![](./imgs/model.png)
 <br><br>
+<img src=./imgs/model.png width=50% />
+:-------------------------:
+Vanilla KD            
 
 ## Table of Contents
 - [Requirements](#-Requirements)
