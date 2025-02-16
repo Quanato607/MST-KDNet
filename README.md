@@ -68,7 +68,7 @@ Our model achieves the following performance on :
 ![](./imgs/c4.png)
 <br><br>
 
-### [Alation Experiment on Brats2024&Fets2024]
+### [Ablation Experiment on Brats2024&Fets2024]
 <br><br>
 ![](./imgs/a1.png)
 <br><br>
