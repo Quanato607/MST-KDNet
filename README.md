@@ -1,4 +1,4 @@
->📋  For code accompanying Muti-scale Transformer Knowledge Distillation Network of the paper
+>📋 For code accompanying Muti-scale Transformer Knowledge Distillation Network of the paper
 
 # Bridging the Gap in Missing Modalities: Leveraging Knowledge Distillation and Style Matching for Brain Tumor Segmentation
 
@@ -14,7 +14,7 @@ This repository is the official implementation of [MST-KDNet](https://arxiv.org/
 
 <img src=./imgs/model.png width=100% />
 
-The overall framework of **MST-KDNet**. **The Teacher propagation processes all available modalities, while the student propagation accommodates incomplete inputs.**     
+>📋 The overall framework of **MST-KDNet**. The Teacher propagation processes all available modalities, while the student propagation accommodates incomplete inputs.
 
 ## Table of Contents
 - [Requirements](#-Requirements)
@@ -39,7 +39,7 @@ To train our model in the paper, run this command:
 python train.py
 ```
 
->📋  Before training, specify the data set and training configuration using the config.xml file
+>📋 Before training, specify the data set and training configuration using the config.xml file
 
 ## 📃 Evaluation
 
@@ -53,7 +53,7 @@ python eval.py
 ![](./imgs/fig2.png)
 <br><br>
 
->📋  Comparison of segmentation results under four missing-modality scenarios: (1) all modalities, (2) FLAIR + T1ce + T2, (3) FLAIR + T1ce, and (4) FLAIR only. From left to right, the figure shows T1, T2, T1ce, and FLAIR images; ground-truth labels for two patients; three columns of comparison-study results; three columns of ablation-study results; and our final segmentation. Color legend: WT = red + yellow + green, TC = red + yellow, ET = red.
+>📋 Comparison of segmentation results under four missing-modality scenarios: (1) all modalities, (2) FLAIR + T1ce + T2, (3) FLAIR + T1ce, and (4) FLAIR only. From left to right, the figure shows T1, T2, T1ce, and FLAIR images; ground-truth labels for two patients; three columns of comparison-study results; three columns of ablation-study results; and our final segmentation. Color legend: WT = red + yellow + green, TC = red + yellow, ET = red.
   
 ## 🚀 Results
 
@@ -83,4 +83,4 @@ Our model achieves the following performance on :
 
 ## 🤝 Contributing
 
->📋  Pick a licence and describe how to contribute to your code repository. 
+>📋 Pick a licence and describe how to contribute to your code repository. 
