@@ -10,9 +10,7 @@
 [![](https://img.shields.io/badge/arXiv-2403.01427-green.svg)](https://arxiv.org/abs/2030.12345)
 </div>
 
-This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). 
-
-Our method maintains **robust and accurate segmentation performance even under severe modality loss**. Furthermore, to reduce redundancy in modality-specific features, we incorporate **global and local feature refinements** to **systematically align available modalities and mitigate missing ones**.
+This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). Our method maintains robust and accurate segmentation performance even under severe modality loss. Furthermore, to reduce redundancy in modality-specific features, we incorporate global and local feature refinements to systematically align available modalities and mitigate missing ones.
 
 <img src=./imgs/model.png width=100% />
 
@@ -45,7 +43,7 @@ python train.py
 
 ## 📃 Evaluation
 
-To evaluate my model on ImageNet, run:
+To evaluate my model in the paper, run this command:
 
 ```eval
 python eval.py
@@ -61,7 +59,7 @@ python eval.py
 
 Our model achieves the following performance on :
 
-### [Comparison Experiment on Brats2024](https://www.synapse.org/Synapse:syn53708249)
+### [Comparison Experiment on BraTS 2024](https://www.synapse.org/Synapse:syn53708249)
 <br><br>
 ![](./imgs/c1.png)
 <br><br>
@@ -69,7 +67,7 @@ Our model achieves the following performance on :
 ![](./imgs/c2.png)
 <br><br>
 
-### [Comparison Experiment on Fets2024](https://www.synapse.org/Synapse:syn53708249)
+### [Comparison Experiment on FeTS 2024](https://www.synapse.org/Synapse:syn53708249)
 <br><br>
 ![](./imgs/c3.png)
 <br><br>
@@ -77,7 +75,7 @@ Our model achieves the following performance on :
 ![](./imgs/c4.png)
 <br><br>
 
-### Ablation Experiment on Brats2024&Fets2024
+### Ablation Experiment on BraTS 2024 & FeTS 2024
 <br><br>
 ![](./imgs/a1.png)
 <br><br>
