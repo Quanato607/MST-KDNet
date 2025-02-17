@@ -33,7 +33,7 @@ pip install -r requirements.txt
 
 ## 🔥 Training
 
-To train the model(s) in the paper, run this command:
+To train our model in the paper, run this command:
 
 ```train
 python train.py
@@ -43,7 +43,7 @@ python train.py
 
 ## 📃 Evaluation
 
-To evaluate my model in the paper, run this command:
+To evaluate our model in the paper, run this command:
 
 ```eval
 python eval.py
