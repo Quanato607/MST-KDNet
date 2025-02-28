@@ -10,7 +10,7 @@
 [![](https://img.shields.io/badge/arXiv-2403.01427-green.svg)](https://arxiv.org/abs/2030.12345)
 </div>
 
-https://github.com/user-attachments/assets/d04c68bf-5b41-4019-bf04-2d72cd68f977
+https://github.com/user-attachments/assets/19c6379d-9b0b-4db2-b831-e3f9de4b09e7
 
 This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). Our method maintains robust and accurate segmentation performance even under severe modality loss. Furthermore, to reduce redundancy in modality-specific features, we incorporate global and local feature refinements to systematically align available modalities and mitigate missing ones.
 
