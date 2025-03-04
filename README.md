@@ -15,7 +15,7 @@ This repository is the official implementation of [MST-KDNet](https://arxiv.org/
 ## 🎥Visualization for Implementation on Software 
 
 <div align="center">
-<img src="https://github.com/Quanato607/MST-KDNet/blob/main/imgs/implementation.gif" width="50%">
+<img src="https://github.com/Quanato607/MST-KDNet/blob/main/imgs/implementation.gif" width="100%">
 </div>
 
 >📋 The overall framework of **MST-KDNet**. The Teacher propagation processes all available modalities, while the student propagation accommodates incomplete inputs.
