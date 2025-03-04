@@ -20,15 +20,15 @@ This repository is the official implementation of [MST-KDNet](https://arxiv.org/
 
 ## 💡Primary contributions
 
-**To overcome the challenges of missing or incomplete MRI modalities in brain tumor segmentation, we propose MST-KDNet. This is a novel framework for cross-modality consistency and robust tumor segmentation in 3D medical images based on knowledge distillation and style matching. Our key contributions are summarized as follows:
+To overcome the challenges of missing or incomplete MRI modalities in brain tumor segmentation, we propose **MST-KDNet**. This is a novel framework for **cross-modality consistency** and **robust tumor segmentation in 3D medical images based on knowledge distillation and style matching**. Our key contributions are summarized as follows:
 
-🕐 MST-KDNet architecture achieves efficient segmentation under missing modalities by selectively aligning multi-scale Transformer features. This design effectively bridges modality gaps while preserving tumor boundary details.
+1) 🕐 MST-KDNet architecture achieves **efficient segmentation** under **missing modalities** by selectively aligning multi-scale Transformer features. This design effectively bridges modality gaps while preserving tumor boundary details.
 
-🕑 MST-KDNet significantly accelerates inference, requiring only a compact distillation procedure instead of heavy fusion modules, making it more adaptable to real-world clinical settings.
+2) 🕑 MST-KDNet significantly accelerates **inference**, **requiring only a compact distillation procedure instead of heavy fusion modules**, making it more adaptable to real-world clinical settings.
 
-🕒 We introduce Global Style Matching Module (GSME) to harmonize heterogeneous modality features and retain texture consistency even with severely missing imaging signals, without extra costly training data.
+3) 🕒 We introduce **Global Style Matching Module (GSME)** to harmonize **heterogeneous modality features** and **retain texture consistency** even with severely missing imaging signals, without extra costly training data.
 
-🕓 Extensive experiments on both the BraTS 2024 and FeTS 2024 datasets demonstrate superior performance and robustness of MST-KDNet, achieving state-of-the-art results especially in scenarios with multiple missing modalities.
+4) 🕓 Extensive experiments on both the **BraTS 2024** and **FeTS 2024 datasets** demonstrate **superior performance** and **robustness** of MST-KDNet, achieving state-of-the-art results especially in scenarios with multiple missing modalities.
 
 ## 🧗Proposed method
 
