@@ -101,6 +101,92 @@ Our model achieves the following performance on :
 ![](./imgs/a1.png)
 <br><br>
 
+<table align="center" style="border-collapse: collapse; width:100%; text-align:center;">
+  <thead>
+    <tr>
+      <!-- 第一行表头，Method 占两行，其余列分别合并三列Dice和三列HD95 -->
+      <th rowspan="2" style="border:1px solid #000; padding:4px;">Method</th>
+      <th colspan="3" style="border:1px solid #000; padding:4px;">Average Dice Score (%)</th>
+      <th colspan="3" style="border:1px solid #000; padding:4px;">Average HD95 Score (mm)</th>
+    </tr>
+    <tr>
+      <!-- 第二行表头：WT, TC, ET, 以及对应HD95的WT, TC, ET -->
+      <th style="border:1px solid #000; padding:4px;">WT</th>
+      <th style="border:1px solid #000; padding:4px;">TC</th>
+      <th style="border:1px solid #000; padding:4px;">ET</th>
+      <th style="border:1px solid #000; padding:4px;">WT</th>
+      <th style="border:1px solid #000; padding:4px;">TC</th>
+      <th style="border:1px solid #000; padding:4px;">ET</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 下面每行对应一组数据 -->
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">RA-HVED</td>
+      <td style="border:1px solid #000; padding:4px;">69.7</td>
+      <td style="border:1px solid #000; padding:4px;">60.0</td>
+      <td style="border:1px solid #000; padding:4px;">50.9</td>
+      <td style="border:1px solid #000; padding:4px;">22.0</td>
+      <td style="border:1px solid #000; padding:4px;">20.6</td>
+      <td style="border:1px solid #000; padding:4px;">19.8</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">RMBTS</td>
+      <td style="border:1px solid #000; padding:4px;">75.2</td>
+      <td style="border:1px solid #000; padding:4px;">60.4</td>
+      <td style="border:1px solid #000; padding:4px;">65.6</td>
+      <td style="border:1px solid #000; padding:4px;">8.6</td>
+      <td style="border:1px solid #000; padding:4px;">25.2</td>
+      <td style="border:1px solid #000; padding:4px;">19.1</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">mmformer</td>
+      <td style="border:1px solid #000; padding:4px;">68.9</td>
+      <td style="border:1px solid #000; padding:4px;">54.6</td>
+      <td style="border:1px solid #000; padding:4px;">48.6</td>
+      <td style="border:1px solid #000; padding:4px;">26.7</td>
+      <td style="border:1px solid #000; padding:4px;">27.5</td>
+      <td style="border:1px solid #000; padding:4px;">34.0</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">M2FTrans</td>
+      <td style="border:1px solid #000; padding:4px;">82.0</td>
+      <td style="border:1px solid #000; padding:4px;">74.3</td>
+      <td style="border:1px solid #000; padding:4px;">63.0</td>
+      <td style="border:1px solid #000; padding:4px;">26.5</td>
+      <td style="border:1px solid #000; padding:4px;">14.8</td>
+      <td style="border:1px solid #000; padding:4px;">20.8</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">ACN</td>
+      <td style="border:1px solid #000; padding:4px;">84.9</td>
+      <td style="border:1px solid #000; padding:4px;">78.8</td>
+      <td style="border:1px solid #000; padding:4px;">67.3</td>
+      <td style="border:1px solid #000; padding:4px;">8.5</td>
+      <td style="border:1px solid #000; padding:4px;">8.4</td>
+      <td style="border:1px solid #000; padding:4px;">16.5</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">SMUNet</td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">87.5</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">82.9</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">72.1</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">6.4</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">6.3</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">5.5</span></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">MST-KDNet</td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:red;">88.4</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:red;">84.3</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:red;">73.4</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:red;">5.9</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:red;">5.7</span></td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:red;">5.4</span></td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## 🤝 Contributing
 
