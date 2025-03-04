@@ -15,7 +15,7 @@ This repository is the official implementation of **[MST-KDNet](https://arxiv.or
 ## 🎥Visualization for Implementation on Software 
 
 <div align="center">
-<img src="https://github.com/Quanato607/MST-KDNet/blob/main/imgs/implementation.gif" width="75%">
+<img src="https://github.com/Quanato607/MST-KDNet/blob/main/imgs/implementation.gif" width="90%">
 </div>
 
 ## 💡Primary contributions
