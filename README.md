@@ -88,6 +88,700 @@ Our model achieves the following performance on :
 ![](./imgs/c2.png)
 <br><br>
 
+<table style="border-collapse: collapse; width:100%; text-align:center;">
+  <caption style="margin-bottom:6px;">
+    Comparison of Dice score for various state-of-the-art models (BraTS 2024). 
+    <span style="color:red;">Red</span> represents the optimal value, 
+    and <span style="color:blue;">Blue</span> represents the suboptimal value.
+  </caption>
+  <!-- 表头部分 -->
+  <thead>
+    <!-- 第一行：Type 与 FLAIR/T1/T1Gd/T2 多行合并 -->
+    <tr>
+      <th rowspan="4" style="border:1px solid #000; padding:4px;">Type</th>
+      <th rowspan="4" style="border:1px solid #000; padding:4px;">
+        FLAIR<br>T1<br>T1Gd<br>T2
+      </th>
+      <!-- 下方是 16 列圆圈/实心圆符号（分成四行），以及最右的 Avg. 合并四行 -->
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th rowspan="4" style="border:1px solid #000; padding:4px;">Avg.</th>
+    </tr>
+    <!-- 第二行 -->
+    <tr>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+    </tr>
+    <!-- 第三行 -->
+    <tr>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;"></th>
+    </tr>
+    <!-- 第四行 -->
+    <tr>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9675;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;">&#9679;</th>
+      <th style="border:1px solid #000; padding:4px;"></th>
+    </tr>
+  </thead>
+  
+  <!-- 表格内容部分 -->
+  <tbody>
+    <!-- WT 行数据 -->
+    <tr>
+      <td style="border:1px solid #000; padding:4px;" rowspan="7">WT</td>
+      <td style="border:1px solid #000; padding:4px;">RA-HVED</td>
+      <td style="border:1px solid #000; padding:4px;"><span style="color:blue;">75.4</span></td>
+      <td style="border:1px solid #000; padding:4px;">51.3</td>
+      <td style="border:1px solid #000; padding:4px;">9.5</td>
+      <td style="border:1px solid #000; padding:4px;">71.4</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">77.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">53.4</td>
+      <td style="border:1px solid #000; padding:4px;">72.9</td>
+      <td style="border:1px solid #000; padding:4px;">76.1</td>
+      <td style="border:1px solid #000; padding:4px;">80.1</td>
+      <td style="border:1px solid #000; padding:4px;">72.9</td>
+      <td style="border:1px solid #000; padding:4px;">72.9</td>
+      <td style="border:1px solid #000; padding:4px;">80.6</td>
+      <td style="border:1px solid #000; padding:4px;">80.4</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">77.7</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">80.1</td>
+      <td style="border:1px solid #000; padding:4px;">68.8</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">RMBTS</td>
+      <td style="border:1px solid #000; padding:4px;">70.1</td>
+      <td style="border:1px solid #000; padding:4px;">51.2</td>
+      <td style="border:1px solid #000; padding:4px;">51.8</td>
+      <td style="border:1px solid #000; padding:4px;">65.0</td>
+      <td style="border:1px solid #000; padding:4px;">75.3</td>
+      <td style="border:1px solid #000; padding:4px;">60.6</td>
+      <td style="border:1px solid #000; padding:4px;">76.4</td>
+      <td style="border:1px solid #000; padding:4px;">75.0</td>
+      <td style="border:1px solid #000; padding:4px;">77.3</td>
+      <td style="border:1px solid #000; padding:4px;">76.0</td>
+      <td style="border:1px solid #000; padding:4px;">79.3</td>
+      <td style="border:1px solid #000; padding:4px;">79.7</td>
+      <td style="border:1px solid #000; padding:4px;">80.3</td>
+      <td style="border:1px solid #000; padding:4px;">76.1</td>
+      <td style="border:1px solid #000; padding:4px;">80.9</td>
+      <td style="border:1px solid #000; padding:4px;">71.7</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">mmformer</td>
+      <td style="border:1px solid #000; padding:4px;">72.6</td>
+      <td style="border:1px solid #000; padding:4px;">55.5</td>
+      <td style="border:1px solid #000; padding:4px;">61.3</td>
+      <td style="border:1px solid #000; padding:4px;">72.7</td>
+      <td style="border:1px solid #000; padding:4px;">74.3</td>
+      <td style="border:1px solid #000; padding:4px;">65.4</td>
+      <td style="border:1px solid #000; padding:4px;">79.2</td>
+      <td style="border:1px solid #000; padding:4px;">75.1</td>
+      <td style="border:1px solid #000; padding:4px;">79.6</td>
+      <td style="border:1px solid #000; padding:4px;">78.3</td>
+      <td style="border:1px solid #000; padding:4px;">80.0</td>
+      <td style="border:1px solid #000; padding:4px;">80.7</td>
+      <td style="border:1px solid #000; padding:4px;">81.0</td>
+      <td style="border:1px solid #000; padding:4px;">75.6</td>
+      <td style="border:1px solid #000; padding:4px;">81.3</td>
+      <td style="border:1px solid #000; padding:4px;">74.2</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">M2FTrans</td>
+      <td style="border:1px solid #000; padding:4px;">72.5</td>
+      <td style="border:1px solid #000; padding:4px;">58.8</td>
+      <td style="border:1px solid #000; padding:4px;">62.0</td>
+      <td style="border:1px solid #000; padding:4px;">73.0</td>
+      <td style="border:1px solid #000; padding:4px;">73.9</td>
+      <td style="border:1px solid #000; padding:4px;">64.2</td>
+      <td style="border:1px solid #000; padding:4px;">77.4</td>
+      <td style="border:1px solid #000; padding:4px;">73.6</td>
+      <td style="border:1px solid #000; padding:4px;">78.9</td>
+      <td style="border:1px solid #000; padding:4px;">77.0</td>
+      <td style="border:1px solid #000; padding:4px;">77.3</td>
+      <td style="border:1px solid #000; padding:4px;">78.5</td>
+      <td style="border:1px solid #000; padding:4px;">79.5</td>
+      <td style="border:1px solid #000; padding:4px;">74.2</td>
+      <td style="border:1px solid #000; padding:4px;">78.8</td>
+      <td style="border:1px solid #000; padding:4px;">73.3</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">ACN</td>
+      <td style="border:1px solid #000; padding:4px;">69.6</td>
+      <td style="border:1px solid #000; padding:4px;">58.7</td>
+      <td style="border:1px solid #000; padding:4px;">60.1</td>
+      <td style="border:1px solid #000; padding:4px;">80.7</td>
+      <td style="border:1px solid #000; padding:4px;">71.8</td>
+      <td style="border:1px solid #000; padding:4px;">63.6</td>
+      <td style="border:1px solid #000; padding:4px;">82.1</td>
+      <td style="border:1px solid #000; padding:4px;">72.2</td>
+      <td style="border:1px solid #000; padding:4px;">82.3</td>
+      <td style="border:1px solid #000; padding:4px;">81.3</td>
+      <td style="border:1px solid #000; padding:4px;">82.0</td>
+      <td style="border:1px solid #000; padding:4px;">82.8</td>
+      <td style="border:1px solid #000; padding:4px;">82.0</td>
+      <td style="border:1px solid #000; padding:4px;">72.5</td>
+      <td style="border:1px solid #000; padding:4px;">82.5</td>
+      <td style="border:1px solid #000; padding:4px;">75.0</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">SMUNet</td>
+      <td style="border:1px solid #000; padding:4px;">75.0</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">67.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">69.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">84.2</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">76.7</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">70.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">84.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">77.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">85.2</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">85.2</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">85.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">85.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">86.0</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">77.2</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">86.0</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">79.7</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">MST-KDNet</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">77.2</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">73.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">84.7</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">79.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">75.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">85.7</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">79.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">85.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">86.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">86.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">86.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">86.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">80.0</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">86.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">81.8</span>
+      </td>
+    </tr>
+    
+    <!-- TC 行数据 -->
+    <tr>
+      <td style="border:1px solid #000; padding:4px;" rowspan="7">TC</td>
+      <td style="border:1px solid #000; padding:4px;">RA-HVED</td>
+      <td style="border:1px solid #000; padding:4px;">26.5</td>
+      <td style="border:1px solid #000; padding:4px;">54.2</td>
+      <td style="border:1px solid #000; padding:4px;">9.4</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">41.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">61.3</td>
+      <td style="border:1px solid #000; padding:4px;">54.8</td>
+      <td style="border:1px solid #000; padding:4px;">41.9</td>
+      <td style="border:1px solid #000; padding:4px;">29.2</td>
+      <td style="border:1px solid #000; padding:4px;">40.5</td>
+      <td style="border:1px solid #000; padding:4px;">61.9</td>
+      <td style="border:1px solid #000; padding:4px;">62.5</td>
+      <td style="border:1px solid #000; padding:4px;">43.2</td>
+      <td style="border:1px solid #000; padding:4px;">64.0</td>
+      <td style="border:1px solid #000; padding:4px;">61.9</td>
+      <td style="border:1px solid #000; padding:4px;">65.0</td>
+      <td style="border:1px solid #000; padding:4px;">47.8</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">RMBTS</td>
+      <td style="border:1px solid #000; padding:4px;">10.9</td>
+      <td style="border:1px solid #000; padding:4px;">36.5</td>
+      <td style="border:1px solid #000; padding:4px;">12.6</td>
+      <td style="border:1px solid #000; padding:4px;">11.2</td>
+      <td style="border:1px solid #000; padding:4px;">40.4</td>
+      <td style="border:1px solid #000; padding:4px;">37.6</td>
+      <td style="border:1px solid #000; padding:4px;">16.8</td>
+      <td style="border:1px solid #000; padding:4px;">15.2</td>
+      <td style="border:1px solid #000; padding:4px;">14.5</td>
+      <td style="border:1px solid #000; padding:4px;">38.9</td>
+      <td style="border:1px solid #000; padding:4px;">40.1</td>
+      <td style="border:1px solid #000; padding:4px;">17.4</td>
+      <td style="border:1px solid #000; padding:4px;">40.4</td>
+      <td style="border:1px solid #000; padding:4px;">40.9</td>
+      <td style="border:1px solid #000; padding:4px;">40.6</td>
+      <td style="border:1px solid #000; padding:4px;">27.6</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">mmformer</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">47.2</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">52.3</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">44.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">33.1</td>
+      <td style="border:1px solid #000; padding:4px;">62.6</td>
+      <td style="border:1px solid #000; padding:4px;">60.6</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">49.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">51.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">49.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">60.6</td>
+      <td style="border:1px solid #000; padding:4px;">64.3</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">52.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">65.5</td>
+      <td style="border:1px solid #000; padding:4px;">65.3</td>
+      <td style="border:1px solid #000; padding:4px;">67.0</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">55.1</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">M2FTrans</td>
+      <td style="border:1px solid #000; padding:4px;">46.6</td>
+      <td style="border:1px solid #000; padding:4px;">53.3</td>
+      <td style="border:1px solid #000; padding:4px;">43.3</td>
+      <td style="border:1px solid #000; padding:4px;">33.8</td>
+      <td style="border:1px solid #000; padding:4px;">60.0</td>
+      <td style="border:1px solid #000; padding:4px;">57.7</td>
+      <td style="border:1px solid #000; padding:4px;">46.7</td>
+      <td style="border:1px solid #000; padding:4px;">48.5</td>
+      <td style="border:1px solid #000; padding:4px;">48.3</td>
+      <td style="border:1px solid #000; padding:4px;">57.8</td>
+      <td style="border:1px solid #000; padding:4px;">60.0</td>
+      <td style="border:1px solid #000; padding:4px;">49.6</td>
+      <td style="border:1px solid #000; padding:4px;">61.5</td>
+      <td style="border:1px solid #000; padding:4px;">60.8</td>
+      <td style="border:1px solid #000; padding:4px;">62.0</td>
+      <td style="border:1px solid #000; padding:4px;">52.7</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">ACN</td>
+      <td style="border:1px solid #000; padding:4px;">21.2</td>
+      <td style="border:1px solid #000; padding:4px;">54.2</td>
+      <td style="border:1px solid #000; padding:4px;">19.5</td>
+      <td style="border:1px solid #000; padding:4px;">22.5</td>
+      <td style="border:1px solid #000; padding:4px;">58.8</td>
+      <td style="border:1px solid #000; padding:4px;">57.9</td>
+      <td style="border:1px solid #000; padding:4px;">26.1</td>
+      <td style="border:1px solid #000; padding:4px;">23.2</td>
+      <td style="border:1px solid #000; padding:4px;">26.7</td>
+      <td style="border:1px solid #000; padding:4px;">60.0</td>
+      <td style="border:1px solid #000; padding:4px;">63.8</td>
+      <td style="border:1px solid #000; padding:4px;">28.3</td>
+      <td style="border:1px solid #000; padding:4px;">62.6</td>
+      <td style="border:1px solid #000; padding:4px;">62.7</td>
+      <td style="border:1px solid #000; padding:4px;">64.1</td>
+      <td style="border:1px solid #000; padding:4px;">43.4</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">SMUNet</td>
+      <td style="border:1px solid #000; padding:4px;">29.3</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">64.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">28.2</td>
+      <td style="border:1px solid #000; padding:4px;">28.8</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">67.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">67.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">32.6</td>
+      <td style="border:1px solid #000; padding:4px;">31.5</td>
+      <td style="border:1px solid #000; padding:4px;">32.5</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">66.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">70.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">33.7</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">69.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">69.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">69.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">50.7</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">MST-KDNet</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">47.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">68.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">44.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">33.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">70.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">71.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">50.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">41.5</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">50.2</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.0</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">74.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">53.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">73.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">59.5</span>
+      </td>
+    </tr>
+
+    <!-- ET 行数据 -->
+    <tr>
+      <td style="border:1px solid #000; padding:4px;" rowspan="7">ET</td>
+      <td style="border:1px solid #000; padding:4px;">RA-HVED</td>
+      <td style="border:1px solid #000; padding:4px;">35.8</td>
+      <td style="border:1px solid #000; padding:4px;">37.8</td>
+      <td style="border:1px solid #000; padding:4px;">9.24</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">39.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">42.3</td>
+      <td style="border:1px solid #000; padding:4px;">36.6</td>
+      <td style="border:1px solid #000; padding:4px;">42.6</td>
+      <td style="border:1px solid #000; padding:4px;">43.8</td>
+      <td style="border:1px solid #000; padding:4px;">44.4</td>
+      <td style="border:1px solid #000; padding:4px;">44.1</td>
+      <td style="border:1px solid #000; padding:4px;">43.9</td>
+      <td style="border:1px solid #000; padding:4px;">48.4</td>
+      <td style="border:1px solid #000; padding:4px;">46.8</td>
+      <td style="border:1px solid #000; padding:4px;">40.7</td>
+      <td style="border:1px solid #000; padding:4px;">45.9</td>
+      <td style="border:1px solid #000; padding:4px;">40.1</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">RMBTS</td>
+      <td style="border:1px solid #000; padding:4px;">7.9</td>
+      <td style="border:1px solid #000; padding:4px;">37.8</td>
+      <td style="border:1px solid #000; padding:4px;">10.0</td>
+      <td style="border:1px solid #000; padding:4px;">8.2</td>
+      <td style="border:1px solid #000; padding:4px;">41.9</td>
+      <td style="border:1px solid #000; padding:4px;">40.1</td>
+      <td style="border:1px solid #000; padding:4px;">13.1</td>
+      <td style="border:1px solid #000; padding:4px;">11.8</td>
+      <td style="border:1px solid #000; padding:4px;">10.8</td>
+      <td style="border:1px solid #000; padding:4px;">40.6</td>
+      <td style="border:1px solid #000; padding:4px;">43.5</td>
+      <td style="border:1px solid #000; padding:4px;">14.0</td>
+      <td style="border:1px solid #000; padding:4px;">42.3</td>
+      <td style="border:1px solid #000; padding:4px;">44.1</td>
+      <td style="border:1px solid #000; padding:4px;">55.2</td>
+      <td style="border:1px solid #000; padding:4px;">28.1</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">mmformer</td>
+      <td style="border:1px solid #000; padding:4px;">44.9</td>
+      <td style="border:1px solid #000; padding:4px;">50.5</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">42.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">31.4</td>
+      <td style="border:1px solid #000; padding:4px;">61.3</td>
+      <td style="border:1px solid #000; padding:4px;">59.0</td>
+      <td style="border:1px solid #000; padding:4px;">45.3</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">49.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">46.6</td>
+      <td style="border:1px solid #000; padding:4px;">59.3</td>
+      <td style="border:1px solid #000; padding:4px;">63.0</td>
+      <td style="border:1px solid #000; padding:4px;">49.6</td>
+      <td style="border:1px solid #000; padding:4px;">63.6</td>
+      <td style="border:1px solid #000; padding:4px;">64.2</td>
+      <td style="border:1px solid #000; padding:4px;">65.7</td>
+      <td style="border:1px solid #000; padding:4px;">53.1</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">M2FTrans</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">47.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">54.2</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">44.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">34.0</td>
+      <td style="border:1px solid #000; padding:4px;">62.6</td>
+      <td style="border:1px solid #000; padding:4px;">60.0</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">47.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">49.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">49.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">60.2</td>
+      <td style="border:1px solid #000; padding:4px;">62.7</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">50.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">64.5</td>
+      <td style="border:1px solid #000; padding:4px;">63.4</td>
+      <td style="border:1px solid #000; padding:4px;">65.0</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">54.3</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">ACN</td>
+      <td style="border:1px solid #000; padding:4px;">18.0</td>
+      <td style="border:1px solid #000; padding:4px;">55.2</td>
+      <td style="border:1px solid #000; padding:4px;">16.9</td>
+      <td style="border:1px solid #000; padding:4px;">19.6</td>
+      <td style="border:1px solid #000; padding:4px;">59.8</td>
+      <td style="border:1px solid #000; padding:4px;">59.6</td>
+      <td style="border:1px solid #000; padding:4px;">22.2</td>
+      <td style="border:1px solid #000; padding:4px;">19.2</td>
+      <td style="border:1px solid #000; padding:4px;">22.4</td>
+      <td style="border:1px solid #000; padding:4px;">60.8</td>
+      <td style="border:1px solid #000; padding:4px;">65.1</td>
+      <td style="border:1px solid #000; padding:4px;">23.9</td>
+      <td style="border:1px solid #000; padding:4px;">64.0</td>
+      <td style="border:1px solid #000; padding:4px;">64.3</td>
+      <td style="border:1px solid #000; padding:4px;">65.9</td>
+      <td style="border:1px solid #000; padding:4px;">42.5</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">SMUNet</td>
+      <td style="border:1px solid #000; padding:4px;">25.5</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">64.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">25.0</td>
+      <td style="border:1px solid #000; padding:4px;">25.1</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">67.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">68.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">28.6</td>
+      <td style="border:1px solid #000; padding:4px;">27.6</td>
+      <td style="border:1px solid #000; padding:4px;">28.6</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">67.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">70.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">29.7</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">69.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">70.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:blue;">70.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">49.3</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000; padding:4px;">MST-KDNet</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">48.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">68.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">32.0</td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">40.6</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">70.0</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.3</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">48.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">50.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">51.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.4</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">74.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">52.5</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">72.8</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">73.1</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">73.9</span>
+      </td>
+      <td style="border:1px solid #000; padding:4px;">
+        <span style="color:red;">59.8</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
 ### [Comparison Experiment on FeTS 2024](https://www.synapse.org/Synapse:syn53708249)
 <br><br>
 ![](./imgs/c3.png)
