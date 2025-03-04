@@ -31,7 +31,6 @@ To overcome the challenges of missing or incomplete MRI modalities in brain tumo
 4) 🕓 Extensive experiments on both the **BraTS 2024** and **FeTS 2024 datasets** demonstrate **superior performance** and **robustness** of MST-KDNet, achieving state-of-the-art results especially in scenarios with multiple missing modalities.
 
 ## 🧗Proposed method
-
 <br><br>
 ![](./imgs/fig1.png)
 <br><br>
