@@ -14,9 +14,11 @@ https://github.com/user-attachments/assets/19c6379d-9b0b-4db2-b831-e3f9de4b09e7
 
 This repository is the official implementation of [MST-KDNet](https://arxiv.org/abs/2030.12345). Our method maintains robust and accurate segmentation performance even under severe modality loss. Furthermore, to reduce redundancy in modality-specific features, we incorporate global and local feature refinements to systematically align available modalities and mitigate missing ones.
 
-<br><br>
-![](./imgs/fig1.png)
-<br><br>
+## 🎥Visualization for Implementation on Software 
+
+<div align="center">
+<img src="https://github.com/Quanato607/MST-KDNet/blob/main/imgs/implementation.gif" width="50%">
+</div>
 
 >📋 The overall framework of **MST-KDNet**. The Teacher propagation processes all available modalities, while the student propagation accommodates incomplete inputs.
 
