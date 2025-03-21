@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# encoding: utf-8
 import numpy as np
 import torch
 import torch.nn as nn
@@ -27,7 +25,7 @@ class BasicBlock(nn.Module):
 
         return x
 
-class MSTKDNet_wo_gsm(nn.Module):
+class MSTKDNet(nn.Module):
     """3d unet
     Ref:
         3D MRI brain tumor segmentation using autoencoder regularization. Andriy Myronenko
@@ -36,7 +34,7 @@ class MSTKDNet_wo_gsm(nn.Module):
     """
 
     def __init__(self, input_shape, in_channels=4, out_channels=3, init_channels=32, p=0.2, unetr=True):
-        super(MSTKDNet_wo_gsm, self).__init__()
+        super(MSTKDNet, self).__init__()
         self.input_shape = input_shape
         self.in_channels = in_channels
         self.out_channels = out_channels
