@@ -1,3 +1,5 @@
+# The code is extensively uses the ACN implementation, please see:
+## https://github.com/Wangyixinxin/ACN##
 #!/usr/bin/env python3
 # encoding: utf-8
 import yaml
@@ -13,61 +15,308 @@ import torch.nn.functional as F
 from utils import *
 import nibabel as nib
 import numpy as np
+from tqdm import tqdm
+a=["flair",'t1','t1ce','t2']
+masks_test = [[False, False, False, True], [False, True, False, False], [False, False, True, False], [True, False, False, False],
+         [False, True, False, True], [False, True, True, False], [True, False, True, False], [False, False, True, True], [True, False, False, True], [True, True, False, False],
+         [True, True, True, False], [True, False, True, True], [True, True, False, True], [False, True, True, True],
+         [True, True, True, True]]
 
-def load_old_model(model_full, model_missing, saved_model_path):
-    print("Constructing model from saved file... ")
-    checkpoint = torch.load(saved_model_path)
-    model_full.load_state_dict(checkpoint["model_full"])
-    model_missing.load_state_dict(checkpoint["model_missing"])
+mask_name = ['t2', 't1', 't1c', 'flair',
+            't1t2', 't1cet1', 'flairt1ce', 't1cet2', 'flairt2', 'flairt1',
+            'flairt1cet1', 'flairt1cet2', 'flairt1t2', 't1cet1cet2',
+            'flairt1cet1t2']
 
-    return model_full, model_missing
-        
-def to_numpy(tensor):
-    if isinstance(tensor, (int, float)):
-        return tensor
-    else:
-        return tensor.data.cpu().numpy()
-         
 
 ## Main section
 config = yaml.load(open('./config.yml'), Loader=yaml.FullLoader)
 init_env('7')
 loaders = make_data_loaders(config)
-model_full, model_missing = build_model(inp_dim1 = 4, inp_dim2 = 1)
+model_full, model_missing = build_model(inp_dim1 = 4, inp_dim2 = 4)
 model_full    = model_full.cuda()
 model_missing = model_missing.cuda()
-d_style = get_style_discriminator(num_classes = 128).cuda()
-task_name = 'brats2024_full'
+d_style       = get_style_discriminator(num_classes = 128).cuda()
+task_name = config['dataset'] + '2024_full'
 log_dir = os.path.join(config['path_to_log'], task_name)
+optimizer, scheduler = make_optimizer_double(config, model_full, model_missing)
+losses = get_losses(config)
+
+continue_training = True
+epoch = 0
+
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)  
+    
 criteria = Dice() 
+    
+def train_val(model_full, model_missing, d_style, loaders, optimizer, scheduler, losses, epoch_init=1):
+    n_epochs = int(config['epochs'])
+    iter_num = 0
+    best_dice = 0.0
+    for epoch in range(epoch_init, n_epochs):
+        scheduler.step()
+        train_loss = 0.0
 
-def evaluate_performance(model_full, model_missing, loaders):
-    class_score_full  = np.array((0.,0.,0.))
-    class_score_mono  = np.array((0.,0.,0.))
-    hd95_score_full  = np.array((0.,0.,0.))
-    hd95_score_mono  = np.array((0.,0.,0.))
-    loader = loaders['eval']
-    total = len(loader)
-    with torch.no_grad():
-        for batch_id, (batch_x, batch_y) in enumerate(loader):
-            batch_x, batch_y = batch_x.cuda(non_blocking=True), batch_y.cuda(non_blocking=True)
-            seg_f, style_f, content_f = model_full(batch_x[:,:])
-            seg_m, style_m, content_m = model_missing(batch_x[:,0:1])
-            metric_full, metric_miss, hd95_full, hd95_miss  = evaluate_sample(seg_f, seg_m, batch_y)
-            class_score_full += metric_full
-            class_score_mono += metric_miss
-            hd95_score_full += hd95_full
-            hd95_score_mono += hd95_miss
+        dice_wt=0.0
+        dice_et=0.0
+        dice_tc=0.0
+        hd95_wt=0.0
+        hd95_et=0.0
+        hd95_tc=0.0
+        hd95=0.0
+        dice=0.0
+        
+        for phase in ['train', 'eval']:
+            if phase == 'eval' and epoch%10!=0 :
+                continue
+            loader = loaders[phase]
+            total = len(loader)
+            for batch_id, (batch_x, batch_y) in tqdm(enumerate(loader), total=total, desc="Training Batches"):
+                iter_num = iter_num + 1
+                batch_x, batch_y = batch_x.cuda(non_blocking=True), batch_y.cuda(non_blocking=True)
+                with torch.set_grad_enabled(phase == 'train'):
 
-    class_score_full  /= total   
-    class_score_mono /= total
-    hd95_score_full  /= total
-    hd95_score_mono /= total
-    print(f' validation Dise score full modalities class>> dice_wt: {class_score_full[0]} dice_tc:{class_score_full[1]}  dice_et:{class_score_full[2]}')
-    print(f' validation Dise score missing modality  class>> dice_wt: {class_score_full[0]} dice_tc:{class_score_full[1]}  dice_et:{class_score_full[2]}')
-    print(f' validation HD95 score full modalities class>> hd95_wt: {hd95_score_full[0]} hd95_tc:{hd95_score_full[1]}  hd95_et:{hd95_score_full[2]}')
-    print(f' validation HD95 score missing modality  class>> hd95_wt: {hd95_score_full[0]} hd95_tc:{hd95_score_full[1]}  hd95_et:{hd95_score_full[2]}')
+                    #随机缺失模态
+                    rb = random.randint(0, 14)
+                    mask = masks_test[rb]
+                    mask_tensor = torch.tensor(mask, dtype=torch.float32).view(1, 4, 1, 1, 1)
+                    mask_tensor = mask_tensor.cuda(non_blocking=True)
+                    batch_xn = batch_x * mask_tensor
+
+                    seg_f, style_f, content_f = model_full(batch_x[:,0:])
+                    seg_m, style_m, content_m = model_missing(batch_xn[:,0:])
+                    loss_dict = losses['co_loss'](config, seg_f, content_f, batch_y, seg_m, content_m, style_f, style_m, epoch)
+                   
+                    d_style.train()
+                    optimizer_d_style = optim.Adam(d_style.parameters(), lr = float(config['lr']), betas=(0.9, 0.99))
+                    # labels for style adversarial training
+                    source_label = 0
+                    target_label = 1
+
+                    optimizer.zero_grad()
+                    optimizer_d_style.zero_grad()
+                    
+                    # only train. Don't accumulate grads in disciminators
+                    for param in d_style.parameters():
+                        param.requires_grad = False
+
+                    if phase == 'train':
+                        (loss_dict['loss_Co']).backward(retain_graph=True)
+                        train_loss += loss_dict['loss_Co'].item()
+                    
+                    ##################### adversarial training ot fool the discriminator ######################
+                    df_src_main = style_f
+                    df_trg_main = style_m
+                    d_df_out_main = d_style(df_trg_main)
+                    loss_adv_df_trg_main = bce_loss(d_df_out_main, source_label)
+                    loss = 0.0002 * loss_adv_df_trg_main
+                    if phase == 'train':
+                        loss.backward()                    
+                    
+                    ####################### Train discriminator networks ######################################
+                    # enable training mode on discriminator networks
+                    for param in d_style.parameters():
+                        param.requires_grad = True
+                    df_src_main = df_src_main.detach()
+                    d_df_out_main = d_style(df_src_main)
+                    loss_d_feature_main = bce_loss(d_df_out_main, source_label)
+                    if phase == 'train':
+                        loss_d_feature_main.backward()
+                    
+                    ####################### train with target ##################################################
+                    df_trg_main = df_trg_main.detach()
+                    d_df_out_main = d_style(df_trg_main)
+                    loss_d_feature_main = bce_loss(d_df_out_main, target_label)
+
+                    if phase == 'train':
+                        loss_d_feature_main.backward()
+
+                
+                num_classes = 4
+
+                if phase == 'train':
+                    optimizer.step()
+                    optimizer_d_style.step()
+                    if (batch_id + 1) % 20 == 0:
+                        print(f'Epoch {epoch+1}>> itteration {batch_id+1}>> training loss>> {train_loss/(batch_id+1)}')
+ 
+                else:
+                    wt,et,tc=measure_dice_score(seg_m, batch_y)
+                    dice+=(wt+et+tc)/3.0
+                    dice_wt+=wt
+                    dice_et+=et
+                    dice_tc+=tc
+
+                    hdwt,hdet,hdtc= measure_hd95(seg_f, batch_y)
+                    hd95+=(hdwt+hdet+hdtc)/3.0
+                    hd95_wt+=hdwt
+                    hd95_et+=hdet
+                    hd95_tc+=hdtc
+
+            if phase == 'train':
+                print(f'Epoch {epoch+1} overall training loss>> {train_loss/(batch_id+1)}')
+                state = {}
+                state['model_full'] = model_full.state_dict()
+                state['model_missing'] = model_missing.state_dict()
+                state['d_style'] = d_style.state_dict()
+                state['optimizer'] = optimizer.state_dict()
+                state['epochs'] = epoch
+                file_name = log_dir + '/model_last.pth'
+                torch.save(state, file_name)
+            else:
+                dice = (dice/(batch_id+1))
+                hd95 = (hd95/(batch_id+1))
+                print(f'Epoch {epoch+1} validation dice score for missing modality whole>> {dice_wt/(batch_id+1)} ,core{dice_tc/(batch_id+1)},enhance{dice_et/(batch_id+1)}')
+                print(f'Epoch {epoch+1} validation hd95 score for missing modality whole>> {hd95_wt/(batch_id+1)} ,core{hd95_tc/(batch_id+1)},enhance{hd95_et/(batch_id+1)}')
+                state = {}
+                state['model_full'] = model_full.state_dict()
+                state['model_missing'] = model_missing.state_dict()
+                state['d_style'] = d_style.state_dict()
+                state['optimizer'] = optimizer.state_dict()
+                state['epochs'] = epoch
+                file_name = log_dir+'/model_best.pth'
+                if dice > best_dice:
+                    torch.save(state, file_name)
+                    best_dice = dice
+
+
+def test_val(model_full, model_missing, d_style, loaders, optimizer, scheduler, losses,rb,mask_name,epoch_init):
+    n_epochs = int(config['epochs'])
+    iter_num = 0
+    best_dice = 0.0
+    for epoch in range(0,1):
+        scheduler.step()
+        train_loss = 0.0
+
+        dice_wt = 0.0
+        dice_et = 0.0
+        dice_tc = 0.0
+        hd95_wt = 0.0
+        hd95_et = 0.0
+        hd95_tc = 0.0
+        hd95 = 0.0
+        dice = 0.0
+
+        for phase in ['eval']:
+            if phase == 'eval' and epoch % 10 != 0:
+                continue
+            loader = loaders[phase]
+            total = len(loader)
+            for batch_id, (batch_x, batch_y) in tqdm(enumerate(loader), total=len(loader), desc="test Batches"):
+                iter_num = iter_num + 1
+                batch_x, batch_y = batch_x.cuda(non_blocking=True), batch_y.cuda(non_blocking=True)
+                with torch.set_grad_enabled(phase == 'train'):
+
+                    # 固定缺失模态
+                    mask = masks_test[rb]
+                    mask_tensor = torch.tensor(mask, dtype=torch.float32).view(1, 4, 1, 1, 1)
+                    mask_tensor = mask_tensor.cuda(non_blocking=True)
+                    batch_xn = batch_x * mask_tensor
+
+                    seg_f, style_f, content_f = model_full(batch_x[:, 0:])
+                    seg_m, style_m, content_m = model_missing(batch_xn[:, 0:])
+                    loss_dict = losses['co_loss'](config, seg_f, content_f, batch_y, seg_m, content_m, style_f, style_m,
+                                                  epoch)
+
+                    d_style.train()
+                    optimizer_d_style = optim.Adam(d_style.parameters(), lr=float(config['lr']), betas=(0.9, 0.99))
+                    # labels for style adversarial training
+                    source_label = 0
+                    target_label = 1
+
+                    optimizer.zero_grad()
+                    optimizer_d_style.zero_grad()
+
+                    # only train. Don't accumulate grads in disciminators
+                    for param in d_style.parameters():
+                        param.requires_grad = False
+
+                    if phase == 'train':
+                        (loss_dict['loss_Co']).backward(retain_graph=True)
+                        train_loss += loss_dict['loss_Co'].item()
+
+                    ##################### adversarial training ot fool the discriminator ######################
+                    df_src_main = style_f
+                    df_trg_main = style_m
+                    d_df_out_main = d_style(df_trg_main)
+                    loss_adv_df_trg_main = bce_loss(d_df_out_main, source_label)
+                    loss = 0.0002 * loss_adv_df_trg_main
+                    if phase == 'train':
+                        loss.backward()
+
+                        ####################### Train discriminator networks ######################################
+                    # enable training mode on discriminator networks
+                    for param in d_style.parameters():
+                        param.requires_grad = True
+                    df_src_main = df_src_main.detach()
+                    d_df_out_main = d_style(df_src_main)
+                    loss_d_feature_main = bce_loss(d_df_out_main, source_label)
+                    if phase == 'train':
+                        loss_d_feature_main.backward()
+
+                    ####################### train with target ##################################################
+                    df_trg_main = df_trg_main.detach()
+                    d_df_out_main = d_style(df_trg_main)
+                    loss_d_feature_main = bce_loss(d_df_out_main, target_label)
+
+                    if phase == 'train':
+                        loss_d_feature_main.backward()
+
+                num_classes = 4
+
+                if phase == 'train':
+                    optimizer.step()
+                    optimizer_d_style.step()
+                    if (batch_id + 1) % 20 == 0:
+                        print(
+                            f'Epoch {epoch + 1}>> itteration {batch_id + 1}>> training loss>> {train_loss / (batch_id + 1)}')
+
+                else:
+                    wt, et, tc = measure_dice_score(seg_m, batch_y)
+                    dice += (wt + et + tc) / 3.0
+                    dice_wt += wt
+                    dice_et += et
+                    dice_tc += tc
+
+                    hdwt, hdet, hdtc = measure_hd95(seg_m, batch_y)
+                    hd95 += (hdwt + hdet + hdtc) / 3.0
+                    hd95_wt += hdwt
+                    hd95_et += hdet
+                    hd95_tc += hdtc
+
+            if phase == 'train':
+                print(f'Epoch {epoch + 1} overall training loss>> {train_loss / (batch_id + 1)}')
+                state = {}
+                state['model_full'] = model_full.state_dict()
+                state['model_missing'] = model_missing.state_dict()
+                state['d_style'] = d_style.state_dict()
+                state['optimizer'] = optimizer.state_dict()
+                state['epochs'] = epoch
+                file_name = log_dir + '/model_last.pth'
+                torch.save(state, file_name)
+            else:
+                dice = (dice / (batch_id + 1))
+                hd95 = (hd95 / (batch_id + 1))
+                print(
+                    f'Epoch {epoch + 1} validation dice score for  modality {mask_name}>> {dice_wt / (batch_id + 1)} ,core{dice_tc / (batch_id + 1)},enhance{dice_et / (batch_id + 1)}')
+                print(
+                    f'Epoch {epoch + 1} validation hd95 score for  modality {mask_name}>> {hd95_wt / (batch_id + 1)} ,core{hd95_tc / (batch_id + 1)},enhance{hd95_et / (batch_id + 1)}')
+                state = {}
+                state['model_full'] = model_full.state_dict()
+                state['model_missing'] = model_missing.state_dict()
+                state['d_style'] = d_style.state_dict()
+                state['optimizer'] = optimizer.state_dict()
+                state['epochs'] = epoch
+                file_name = log_dir + '/model_best.pth'
+                if dice > best_dice:
+                    torch.save(state, file_name)
+                    best_dice = dice
 
 saved_model_path = log_dir+'/model_best.pth'
-model_full, model_missing = load_old_model(model_full, model_missing, saved_model_path)
-evaluate_performance(model_full, model_missing, loaders)
+print(f'Reading the model from path: {saved_model_path} ')
+
+model_full, model_missing, d_style, optimizer, epoch = load_old_model(model_full, model_missing, d_style, optimizer, saved_model_path)
+# train_val(model_full, model_missing, d_style, loaders, optimizer, scheduler, losses, epoch)
+for i in range(0,15):
+    test_val(model_full, model_missing, d_style, loaders, optimizer, scheduler, losses,i,mask_name[i],epoch_init=0)
+print('Test process is finished')
