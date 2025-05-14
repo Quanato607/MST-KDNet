@@ -192,8 +192,6 @@ DMLD’s logit‑level alignment is the final refinement that pushes both Dice a
 
 ### Comparative Experiments on BraTS 2024
 
-### [Comparison Experiment on FeTS 2024 with Dice metric](https://www.synapse.org/Synapse:syn53708249)
-
 **1. Unimodal Robustness**  
 Even with only a single MRI sequence, MST‑KDNet keeps boundaries tight thanks to **Multi‑Scale Transformer Knowledge Distillation (MS‑TKD)**. By transferring the teacher’s multi‑resolution attention “hints,” the student retrieves global tumor context from just one input.
 
@@ -221,6 +219,7 @@ With all four sequences, **Dual‑Mode Logit Distillation (DMLD)** polishes the 
 
 DMLD’s combined MSE and KL losses smooth out residual inconsistencies, ensuring the sharpest, most reliable boundaries when data is complete.
 
+### [Comparison Experiment on FeTS 2024 with Dice metric](https://www.synapse.org/Synapse:syn53708249)
 
 |   Type   |    Model     |   T2   |  T1Gd  |   T1   |  FLAIR  | T1Gd+T2 | T1+T1Gd | FLAIR+T1 | T1+T2 | FLAIR+T2 | FLAIR+T1Gd | FLAIR+T1+T1Gd | FLAIR+T1+T2 | FLAIR+T1Gd+T2 | T1+T1Gd+T2 | FLAIR+T1+T1Gd+T2 |  Avg  |
 |:--------:|:------------:|:------:|:------:|:------:|:-------:|:-------:|:-------:|:--------:|:-----:|:--------:|:----------:|:-------------:|:-----------:|:-------------:|:----------:|:----------------:|:-----:|
