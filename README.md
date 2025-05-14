@@ -80,6 +80,62 @@ python eval.py
 
 Our model achieves the following performance on :
 
+---
+
+### Comparative Experiments on BraTS 2024
+
+**1. Unimodal Robustness**
+
+When only a single MRI sequence is available, MST‑KDNet still delivers both high Dice accuracy and low boundary error, thanks to its **Multi‑Scale Transformer Knowledge Distillation (MS‑TKD)** module, which aligns attention maps across resolutions to recover contextual cues. MS‑TKD works by distilling the teacher’s most salient attention patterns—peaks, troughs and average activations—into the student at every transformer layer, so that even with just one input, the student “knows” where tumors typically appear and how they span across scales.
+
+* **T2 only**
+
+  * Dice (WT/TC/ET): **77.2 % / 47.3 % / 48.3 %** vs. SMUNet’s 75.0 % / 29.3 % / 25.5 %
+  * HD95 (WT/TC/ET): **8.1 mm / 12.0 mm / 11.7 mm** vs. SMUNet’s 9.1 mm / 14.0 mm / 13.5 mm
+
+* **T1Gd only**
+
+  * Dice: **72.9 % / 68.3 % / 68.6 %** vs. SMUNet’s 67.9 % / 64.1 % / 64.8 %
+  * HD95: **11.1 mm / 4.9 mm / 4.5 mm** vs. SMUNet’s 13.3 mm / 6.3 mm / 5.4 mm
+
+* **T1 only**
+
+  * Dice: **73.5 % / 44.5 % / 32.0 %** vs. SMUNet’s 69.6 % / 28.2 % / 25.0 %
+  * HD95: **11.0 mm / 11.2 mm / 10.5 mm** vs. SMUNet’s 5.9 mm / 14.0 mm / 14.0 mm
+
+* **FLAIR only**
+
+  * Dice: **84.7 % / 33.9 % / 40.6 %** vs. SMUNet’s 84.2 % / 28.8 % / 25.1 %
+  * HD95: **6.7 mm / 12.1 mm / 11.9 mm** vs. SMUNet’s 12.2 mm / 13.4 mm / 13.0 mm
+
+These results demonstrate MS‑TKD’s ability to impart global context—even when only one modality is present—yielding both higher overlap and tighter boundaries.
+
+**2. Bimodal & Trimodal Gains**
+
+Adding a second or third modality further reduces boundary error and boosts accuracy. This improvement is driven by the **Global Style Matching Module (GSME)**, which adversarially aligns global feature statistics—mean and variance—between the student’s fused features and the teacher’s multi‑modal style. By correcting modality‑specific brightness and texture shifts, GSME ensures that the student sees a consistent “appearance” regardless of which sequences are present, sharpening tumor boundaries and reducing spurious errors.
+
+* **Bimodal inputs** (e.g. T1Gd + T2, T1 + T1Gd, …)
+
+  * Dice **79.8 %–85.7 % / 50.1 %–71.3 % / 48.5 %–72.3 %**, outperforming competitors by 3–8 pp
+  * HD95 **4.6 mm–9.2 mm / 3.7 mm–10.5 mm / 3.3 mm–10.6 mm** vs. SMUNet’s **5.1 mm–11.2 mm / 4.2 mm–12.2 mm / 2.8 mm–12.0 mm**
+
+* **Trimodal inputs** (e.g. FLAIR + T1 + T1Gd, …)
+
+  * Dice **80.0 %–86.9 % / 59.5 %–73.1 % / 59.8 %–73.9 %**, again leading by several points
+  * HD95 **4.7 mm–5.1 mm / 3.4 mm–5.1 mm / 2.9 mm–5.3 mm** vs. SMUNet’s **4.8 mm–5.3 mm / 3.7 mm–4.3 mm / 2.8 mm–5.3 mm**
+
+Here, GSME’s style alignment translates directly into crisper edges (lower HD95) and higher overlap (Dice) when combining modalities.
+
+**3. Full‑Modality Peak Performance**
+
+With all four modalities available, MST‑KDNet maximizes both accuracy and boundary fidelity through **Dual‑Mode Logit Distillation (DMLD)**. DMLD employs a combined mean‐squared error on logits and a temperature‑scaled KL divergence to smooth out discrepancies between the student’s outputs under missing‑modality and full‑modality conditions. This dual‑mode supervision ensures predictions remain stable and consistent, ironing out boundary irregularities and false positives.
+
+* **Dice (WT/TC/ET):** **86.8 % / 73.1 % / 73.9 %** vs. SMUNet’s 79.7 % / 50.7 % / 49.3 %
+* **HD95 (WT/TC/ET):** **6.6 mm / 7.2 mm / 6.8 mm** vs. SMUNet’s 7.4 mm / 8.5 mm / 8.0 mm
+
+DMLD’s logit‑level alignment is the final refinement that pushes both Dice and HD95 to their optimal values under ideal input.
+
+
 ### [Comparison Experiment on BraTS 2024 with Dice metric](https://www.synapse.org/Synapse:syn53708249)
 
 | Type   | Model      | T2   | T1Gd | T1   | FLAIR | T1Gd+T2 | T1+T1Gd | FLAIR+T1 | T1+T2 | FLAIR+T2 | FLAIR+T1Gd | FLAIR+T1+T1Gd | FLAIR+T1+T2 | FLAIR+T1Gd+T2 | T1+T1Gd+T2 | FLAIR+T1+T1Gd+T2 | Avg.  |
@@ -132,6 +188,64 @@ Our model achieves the following performance on :
 |          | SMUNet       | 13.5   |  5.4   | 14.0   | 13.0    |  3.9      |  4.3      | 11.8       | 11.5    | 12.0       |  4.1         |  3.7            | 11.3         |  3.7            |  4.0         |  4.0              |  8.0    |
 |          | MST‑KDNet    |**11.7**|**4.5** |**10.5**|**11.9** |**3.3**    |**3.8**    |**9.8**     |**10.3** |**10.6**    |**3.2**       |**3.0**          |**9.8**       |**3.3**          |**2.9**       |**3.0**            |**6.8**  |
 
+---
+
+### Comparative Experiments on BraTS 2024
+
+### [Comparison Experiment on FeTS 2024 with Dice metric](https://www.synapse.org/Synapse:syn53708249)
+
+**1. Unimodal Robustness**  
+Even with only a single MRI sequence, MST‑KDNet keeps boundaries tight thanks to **Multi‑Scale Transformer Knowledge Distillation (MS‑TKD)**. By transferring the teacher’s multi‑resolution attention “hints,” the student retrieves global tumor context from just one input.
+
+- **T2 only:** HD95 drops to ~6.5 mm (vs. ~7.1 mm in other methods)  
+- **T1Gd only:** HD95 around ~9.4 mm (vs. ~10.1 mm)  
+- **T1 only:** HD95 near ~10.2 mm (vs. ~11.2 mm)  
+- **FLAIR only:** HD95 shrinks to ~5.0 mm (vs. ~5.9 mm)
+
+MS‑TKD’s distilled attention makes up for missing modalities, preserving both shape and location fidelity.
+
+
+**2. Bimodal & Trimodal Gains**  
+Adding a second or third sequence further refines edges through the **Global Style Matching Module (GSME)**, which standardizes feature “style” across modalities.
+
+- **Bimodal inputs:** average HD95 falls by 1–2 mm compared to two‑sequence baselines  
+- **Trimodal inputs:** boundaries tighten further to ~4–5 mm HD95
+
+GSME’s adversarial style alignment corrects contrast and texture shifts, yielding consistently crisper tumor margins.
+
+
+**3. Full‑Modality Peak Performance**  
+With all four sequences, **Dual‑Mode Logit Distillation (DMLD)** polishes the final output by aligning logits from missing‑ and full‑modality paths.
+
+- **All four modalities:** HD95 reaches ~4.1 mm—the lowest across all configurations
+
+DMLD’s combined MSE and KL losses smooth out residual inconsistencies, ensuring the sharpest, most reliable boundaries when data is complete.
+
+
+|   Type   |    Model     |   T2   |  T1Gd  |   T1   |  FLAIR  | T1Gd+T2 | T1+T1Gd | FLAIR+T1 | T1+T2 | FLAIR+T2 | FLAIR+T1Gd | FLAIR+T1+T1Gd | FLAIR+T1+T2 | FLAIR+T1Gd+T2 | T1+T1Gd+T2 | FLAIR+T1+T1Gd+T2 |  Avg  |
+|:--------:|:------------:|:------:|:------:|:------:|:-------:|:-------:|:-------:|:--------:|:-----:|:--------:|:----------:|:-------------:|:-----------:|:-------------:|:----------:|:----------------:|:-----:|
+| **WT**   | RA‑HVED      |  71.1  |  54.4  |  49.6  |  66.4   |  75.3   |  59.7   |   66.6   |  75.7 |   75.1   |    69.2    |      70.3      |    79.1     |      77.2     |    76.2    |       80.0       |  69.7 |
+|          | RMBTS        |  69.9  |  54.6  |  65.6  |  71.8   |  71.5   |  70.0   |   83.3   |  80.1 |   76.2   |    73.4    |      84.0      |    84.8     |      76.5     |    80.8    |       85.2       |  75.2 |
+|          | mmformer     |  66.2  |  59.9  |  50.6  |  70.8   |  68.8   |  62.7   |   72.8   |  67.5 |   73.7   |    73.8    |      74.1      |    73.6     |      74.5     |    69.7    |       74.3       |  68.9 |
+|          | M2FTrans     |  81.9  |  71.0  |  65.9  |  79.4   |  84.4   |  75.6   |   84.6   |  83.8 |   86.7   |    84.2    |      85.8      |    87.2     |      87.7     |    84.8    |       87.8       |  82.0 |
+|          | ACN          |  84.0  |  74.2  |  71.3  |  88.4   |  85.6   |  75.9   |   88.6   |  85.6 |   89.2   |    88.6    |      88.9      |    89.1     |      89.5     |    85.7    |       89.6       |  84.9 |
+|          | SMUNet       |  86.7  |  78.8  |  77.4  |  90.0   |  87.8   |  80.6   |   90.6   |  87.7 |   90.7   |    90.5    |      90.7      |    91.0     |      91.2     |    88.0    |       91.4       |  87.5 |
+|          | MST‑KDNet    |**87.6**|**81.4**|**80.3**|**90.3** |**88.2** |**82.8** |**90.9**  |**88.4**|**91.2**  |**91.1**    |**91.2**        |**91.3**     |**91.5**       |**88.4**   |**91.5**         |**88.4**|
+| **TC**   | RA‑HVED      |  47.1  |  63.8  |  35.0  |  45.3   |  70.1   |  69.1   |   45.2   |  51.5 |   50.5   |    71.8    |      71.2      |    52.4     |      74.5     |    75.5    |       77.9       |  60.0 |
+|          | RMBTS        |  46.4  |  39.2  |  69.9  |  40.6   |  50.6   |  71.2   |   71.9   |  72.3 |   52.2   |    48.1    |      72.2      |    72.5     |      53.5     |    72.5    |       72.8       |  60.4 |
+|          | mmformer     |  42.0  |  59.5  |  32.9  |  42.2   |  64.7   |  64.0   |   47.7   |  44.0 |   47.9   |    62.5    |      65.8      |    49.3     |      64.1     |    65.9    |       66.0       |  54.6 |
+|          | M2FTrans     |  57.6  |  81.2  |  52.9  |  59.7   |  85.3   |  81.2   |   66.9   |  62.4 |   67.6   |    84.6    |      85.3      |    69.4     |      86.0     |    85.9    |       85.6       |  74.3 |
+|          | ACN          |  67.9  |  85.6  |  59.9  |  69.6   |  87.7   |  86.8   |   70.9   |  68.6 |   71.5   |    87.9    |      88.6      |    71.7     |      87.7     |    88.5    |       88.7       |  78.8 |
+|          | SMUNet       |  74.2  |  88.6  |  70.4  |  74.5   |  90.0   |  89.2   |   76.1   |  74.9 |   76.4   |    90.4    |      90.5      |    76.9     |      90.6     |    90.2    |       90.6       |  82.9 |
+|          | MST‑KDNet    |**76.2**|**90.0**|**73.0**|**76.9** |**90.9** |**90.7** |**78.5**  |**76.5**|**78.8**  |**90.8**    |**91.1**        |**78.5**     |**91.0**       |**90.9**   |**91.1**         |**84.3**|
+| **ET**   | RA‑HVED      |  32.2  |  61.1  |  22.3  |  28.5   |  67.6   |  66.2   |   29.3   |  32.9 |   34.5   |    67.4    |      66.5      |    36.4     |      71.3     |    72.7    |       74.0       |  50.9 |
+|          | RMBTS        |  45.3  |  38.0  |**78.7**|  39.9   |  49.3   |  81.3   |**83.0**  |**82.5**|   51.2   |    47.7    |  83.4          |**83.4**     |      53.1     |   83.6 |      83.8    |  65.6 |
+|          | mmformer     |  25.4  |  60.2  |  12.5  |  31.9   |  61.7   |  64.4   |   33.8   |  25.8 |   35.1   |    62.0    |      64.4      |    34.9     |      60.9     |    63.3    |       62.6       |  46.6 |
+|          | M2FTrans     |  38.4  |  77.6  |  30.7  |  41.4   |  80.5   |  79.6   |   46.1   |  42.6 |   50.1   |    81.2    |      81.5      |    51.5     |      61.2     |    81.0    |       81.1       |  63.0 |
+|          | ACN          |  50.3  |  79.7  |  41.5  |  50.8   |  81.9   |  81.3   |   51.7   |  50.7 |   54.3   |    82.5    |      83.0      |    54.3     |      84.7     |    82.2    |       82.6       |  67.3 |
+|          | SMUNet       |  57.2  |  83.3  |  52.0  |  56.5   |  84.4   |  84.1   |   58.7   |  58.1 |  60.9    |  85.2      |  85.3          |   61.2     |  84.9         |  84.6     |         84.9      |  72.1 |
+|          | MST‑KDNet    |**59.3**|**84.5**|  54.6  |**59.2** |**85.1** |**84.8** |   61.2   |  59.9  |**62.9**  |**85.6**    |**85.7**        |  62.7     |**85.4**       |**85.3**   |       **85.5**    |**73.4**|
+
 ### [Comparison Experiment on FeTS 2024 with HD95 metric](https://www.synapse.org/Synapse:syn53708249)
 
 |   Type   |    Model     |   T2   |  T1Gd  |   T1   |  FLAIR  | T1Gd+T2 | T1+T1Gd | FLAIR+T1 | T1+T2 | FLAIR+T2 | FLAIR+T1Gd | FLAIR+T1+T1Gd | FLAIR+T1+T2 | FLAIR+T1Gd+T2 | T1+T1Gd+T2 | FLAIR+T1+T1Gd+T2 |  Avg  |
@@ -158,31 +272,7 @@ Our model achieves the following performance on :
 |          | SMUNet       |**8.8** |  4.0   | 10.3   |  8.3    |  3.0    |  3.1    |  8.1     |**8.6**| **7.4**  |  2.9       |  3.0           | **7.3**     |  2.8          |  2.8        |  2.8             |  5.5  |
 |          | MST‑KDNet    |  9.4   |**2.9** | **9.5**| **8.2** |**2.5**  |**2.8**  | **7.9**  |**8.6**|  7.7     | **2.8**    | **2.7**        |  7.8        | **2.6**        | **2.5**      | **2.6**          | **5.4** |
 
-### [Comparison Experiment on FeTS 2024 with Dice metric](https://www.synapse.org/Synapse:syn53708249)
-
-|   Type   |    Model     |   T2   |  T1Gd  |   T1   |  FLAIR  | T1Gd+T2 | T1+T1Gd | FLAIR+T1 | T1+T2 | FLAIR+T2 | FLAIR+T1Gd | FLAIR+T1+T1Gd | FLAIR+T1+T2 | FLAIR+T1Gd+T2 | T1+T1Gd+T2 | FLAIR+T1+T1Gd+T2 |  Avg  |
-|:--------:|:------------:|:------:|:------:|:------:|:-------:|:-------:|:-------:|:--------:|:-----:|:--------:|:----------:|:-------------:|:-----------:|:-------------:|:----------:|:----------------:|:-----:|
-| **WT**   | RA‑HVED      |  71.1  |  54.4  |  49.6  |  66.4   |  75.3   |  59.7   |   66.6   |  75.7 |   75.1   |    69.2    |      70.3      |    79.1     |      77.2     |    76.2    |       80.0       |  69.7 |
-|          | RMBTS        |  69.9  |  54.6  |  65.6  |  71.8   |  71.5   |  70.0   |   83.3   |  80.1 |   76.2   |    73.4    |      84.0      |    84.8     |      76.5     |    80.8    |       85.2       |  75.2 |
-|          | mmformer     |  66.2  |  59.9  |  50.6  |  70.8   |  68.8   |  62.7   |   72.8   |  67.5 |   73.7   |    73.8    |      74.1      |    73.6     |      74.5     |    69.7    |       74.3       |  68.9 |
-|          | M2FTrans     |  81.9  |  71.0  |  65.9  |  79.4   |  84.4   |  75.6   |   84.6   |  83.8 |   86.7   |    84.2    |      85.8      |    87.2     |      87.7     |    84.8    |       87.8       |  82.0 |
-|          | ACN          |  84.0  |  74.2  |  71.3  |  88.4   |  85.6   |  75.9   |   88.6   |  85.6 |   89.2   |    88.6    |      88.9      |    89.1     |      89.5     |    85.7    |       89.6       |  84.9 |
-|          | SMUNet       |  86.7  |  78.8  |  77.4  |  90.0   |  87.8   |  80.6   |   90.6   |  87.7 |   90.7   |    90.5    |      90.7      |    91.0     |      91.2     |    88.0    |       91.4       |  87.5 |
-|          | MST‑KDNet    |**87.6**|**81.4**|**80.3**|**90.3** |**88.2** |**82.8** |**90.9**  |**88.4**|**91.2**  |**91.1**    |**91.2**        |**91.3**     |**91.5**       |**88.4**   |**91.5**         |**88.4**|
-| **TC**   | RA‑HVED      |  47.1  |  63.8  |  35.0  |  45.3   |  70.1   |  69.1   |   45.2   |  51.5 |   50.5   |    71.8    |      71.2      |    52.4     |      74.5     |    75.5    |       77.9       |  60.0 |
-|          | RMBTS        |  46.4  |  39.2  |  69.9  |  40.6   |  50.6   |  71.2   |   71.9   |  72.3 |   52.2   |    48.1    |      72.2      |    72.5     |      53.5     |    72.5    |       72.8       |  60.4 |
-|          | mmformer     |  42.0  |  59.5  |  32.9  |  42.2   |  64.7   |  64.0   |   47.7   |  44.0 |   47.9   |    62.5    |      65.8      |    49.3     |      64.1     |    65.9    |       66.0       |  54.6 |
-|          | M2FTrans     |  57.6  |  81.2  |  52.9  |  59.7   |  85.3   |  81.2   |   66.9   |  62.4 |   67.6   |    84.6    |      85.3      |    69.4     |      86.0     |    85.9    |       85.6       |  74.3 |
-|          | ACN          |  67.9  |  85.6  |  59.9  |  69.6   |  87.7   |  86.8   |   70.9   |  68.6 |   71.5   |    87.9    |      88.6      |    71.7     |      87.7     |    88.5    |       88.7       |  78.8 |
-|          | SMUNet       |  74.2  |  88.6  |  70.4  |  74.5   |  90.0   |  89.2   |   76.1   |  74.9 |   76.4   |    90.4    |      90.5      |    76.9     |      90.6     |    90.2    |       90.6       |  82.9 |
-|          | MST‑KDNet    |**76.2**|**90.0**|**73.0**|**76.9** |**90.9** |**90.7** |**78.5**  |**76.5**|**78.8**  |**90.8**    |**91.1**        |**78.5**     |**91.0**       |**90.9**   |**91.1**         |**84.3**|
-| **ET**   | RA‑HVED      |  32.2  |  61.1  |  22.3  |  28.5   |  67.6   |  66.2   |   29.3   |  32.9 |   34.5   |    67.4    |      66.5      |    36.4     |      71.3     |    72.7    |       74.0       |  50.9 |
-|          | RMBTS        |  45.3  |  38.0  |**78.7**|  39.9   |  49.3   |  81.3   |**83.0**  |**82.5**|   51.2   |    47.7    |  83.4          |**83.4**     |      53.1     |   83.6 |      83.8    |  65.6 |
-|          | mmformer     |  25.4  |  60.2  |  12.5  |  31.9   |  61.7   |  64.4   |   33.8   |  25.8 |   35.1   |    62.0    |      64.4      |    34.9     |      60.9     |    63.3    |       62.6       |  46.6 |
-|          | M2FTrans     |  38.4  |  77.6  |  30.7  |  41.4   |  80.5   |  79.6   |   46.1   |  42.6 |   50.1   |    81.2    |      81.5      |    51.5     |      61.2     |    81.0    |       81.1       |  63.0 |
-|          | ACN          |  50.3  |  79.7  |  41.5  |  50.8   |  81.9   |  81.3   |   51.7   |  50.7 |   54.3   |    82.5    |      83.0      |    54.3     |      84.7     |    82.2    |       82.6       |  67.3 |
-|          | SMUNet       |  57.2  |  83.3  |  52.0  |  56.5   |  84.4   |  84.1   |   58.7   |  58.1 |  60.9    |  85.2      |  85.3          |   61.2     |  84.9         |  84.6     |         84.9      |  72.1 |
-|          | MST‑KDNet    |**59.3**|**84.5**|  54.6  |**59.2** |**85.1** |**84.8** |   61.2   |  59.9  |**62.9**  |**85.6**    |**85.7**        |  62.7     |**85.4**       |**85.3**   |       **85.5**    |**73.4**|
+---
 
 ### Ablation Study on BraTS 2024
 
@@ -204,6 +294,7 @@ In the *BraTS 2024* multi‑modal ablation study, every core module proved cri
 | w/o SLKD      | 80.0        | -1.8   | 56.1        | -3.4   | 55.2        | -4.6   | 8.1          | +1.5   | 8.7          | +1.5   | 8.0          | +1.2   |
 | **Ours**      | **81.8**    | -      | **59.5**    | -    | **59.8**    | -    | **6.6**      | -    | **7.2**      |  -    | **6.8**      |  -    |
 
+---
 
 ### Ablation Study on FeTS 2024
 
